@@ -13,6 +13,11 @@
 
 #include "dirtyJtagConfig.h"
 
+//for the clock output 
+#include "hardware/pll.h"
+#include "hardware/clocks.h"
+#include "hardware/structs/pll.h"
+#include "hardware/structs/clocks.h"
 #define MULTICORE
 
 void init_pins()
@@ -158,7 +163,9 @@ int main()
         cdc_uart_init( PIN_UART1, PIN_UART1_RX, PIN_UART1_TX );
     #endif
 #endif
-
+    // add clock output 
+    clock_gpio_init(25,CLOCKS_CLK_GPOUT1_CTRL_AUXSRC_VALUE_CLK_USB,1 );		
+	
 #ifdef MULTICORE
     multicore_launch_core1(core1_entry);
 #else 

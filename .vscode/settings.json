@@ -1,0 +1,16 @@
+{
+    "files.associations": {
+        "get_serial.h": "c",
+        "clocks.h": "c"
+    },
+   // "cmake.configureArgs": [
+   //     "-DPICO_BOARD=GateMateSOM",
+   // ],
+
+    "cmake.configureSettings": {
+       "PICO_BOARD": "GateMateSOM",
+     }
+    
+}
+
+

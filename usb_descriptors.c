@@ -126,7 +126,7 @@ uint8_t const * tud_descriptor_configuration_cb(uint8_t index)
 char const *string_desc_arr[] =
 {
     (const char[]){0x09, 0x04}, // 0: is supported language is English (0x0409)
-    "cdg66",              // 1: Manufacturer
+    "Jean THOMAS",              // 1: Manufacturer
     "DirtyJTAG",                // 2: Product
     usb_serial,                 // 3: Serial, uses flash unique ID
 #if ( USB_CDC_UART_BRIDGE )

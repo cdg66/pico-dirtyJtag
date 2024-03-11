@@ -20,6 +20,10 @@
 #include "hardware/structs/clocks.h"
 #define MULTICORE
 
+//#define PICO_BOOT_STAGE2_CHOOSE_W25Q080 1
+//#define PICO_XOSC_STARTUP_DELAY_MULTIPLIER 64
+//#define PICO_FLASH_SPI_CLKDIV 16 
+
 void init_pins()
 {
     bi_decl(bi_4pins_with_names(PIN_TCK, "TCK", PIN_TDI, "TDI", PIN_TDO, "TDO", PIN_TMS, "TMS"));
@@ -152,6 +156,8 @@ bool tud_vendor_control_xfer_cb(uint8_t rhport, uint8_t stage, tusb_control_requ
 
 int main()
 {
+    uint32_t *vio_ctrl_reg = (uint32_t*)PADS_BANK0_BASE + 0x00;
+    *vio_ctrl_reg = 0x01; // set the io voltage level to 1.8v beacuse we are running a 1.8v board
     board_init();
     usb_serial_init();
     tusb_init();
@@ -164,7 +170,8 @@ int main()
     #endif
 #endif
     // add clock output 
-    clock_gpio_init(25,CLOCKS_CLK_GPOUT1_CTRL_AUXSRC_VALUE_CLK_USB,1 );		
+    clock_gpio_init(23,CLOCKS_CLK_GPOUT1_CTRL_AUXSRC_VALUE_CLK_USB,1 );		
+    //clock_gpio_init(25,CLOCKS_CLK_GPOUT1_CTRL_AUXSRC_VALUE_CLK_USB,1 );		
 	
 #ifdef MULTICORE
     multicore_launch_core1(core1_entry);
